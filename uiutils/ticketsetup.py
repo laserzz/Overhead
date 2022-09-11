@@ -9,15 +9,14 @@ class TicketSetupView(View): #class for opening tickets
     @discord.ui.button(label="Open Ticket", style=discord.ButtonStyle.green, custom_id="ticket_opener")
 
     async def btn_callback(self, button, interaction:discord.Interaction):
-        username, tag = interaction.user.name, interaction.user.discriminator
         for chn in interaction.guild.channels:
-            if username and tag in chn.name:
+            if str(interaction.user.id) in chn.name:
                 return await interaction.response.send_message("You already have an open ticket!", ephemeral=True)
         await interaction.response.defer(ephemeral=True)
         data = await apdcoll.find_one({"_id": interaction.guild_id})
 
         category = interaction.guild.get_channel(data["ticketCat"])
-        channel = await interaction.guild.create_text_channel(name=f"ticket {interaction.user}", category=category)
+        channel = await interaction.guild.create_text_channel(name=f"{interaction.user.id}", category=category)
         perms = channel.overwrites_for(interaction.user)
         perms.view_channel=True
         await channel.set_permissions(interaction.user, overwrite=perms)
