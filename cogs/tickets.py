@@ -32,7 +32,8 @@ class tickets(commands.Cog):
                 "$set": {
                     "ticketChannel": channel.id,
                     "ticketLogs": logchannel.id,
-                    "ticketCat": category.id
+                    "ticketCat": category.id,
+                    "makeDelete": False
                 }
             },
             upsert=True
@@ -63,6 +64,7 @@ class tickets(commands.Cog):
         await ctx.respond(f"{role.mention} removed from ticket channels.", ephemeral=True)
 
     @ticketcmd.command(name="openticket", description="opens a ticket with a certain user.")
+    @commands.has_permissions(administrator=True)
     async def open_ticket(self, ctx, member:discord.Member):
         data = await apdcoll.find({"_id": ctx.guild.id})
         async for ids in data:
@@ -77,6 +79,14 @@ class tickets(commands.Cog):
         embed = discord.Embed(title=f"ticket {member}", description="Staff has opened a ticket with you.")
         await channel.send(embed=embed, view=ticketui.TicketView())
         await ctx.respond("Ticket Open!", ephemeral=True)
+
+    @ticketcmd.command(name="createclose", description="Toggles whether ticket creator can close it. False by default.")
+    async def createclose(self, ctx, setting:bool):
+        await apdcoll.update_one(
+            {"_id": ctx.guild.id},
+            {"$set": {"makeDelete": setting}}
+        )
+        await ctx.respond(f"Setting set to {setting}.")
 
 def setup(bot):
     bot.add_cog(tickets(bot))

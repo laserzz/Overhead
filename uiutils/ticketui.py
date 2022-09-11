@@ -9,7 +9,7 @@ class TicketView(View): #class for managing opened tickets
     @discord.ui.button(label="Close Ticket", row=0, style=discord.ButtonStyle.red, custom_id="close_ticket")
 
     async def close_btn_callback(self, button, interaction: discord.Interaction):
-        data = apdcoll.find({"_id": interaction.guild_id})
+        data = await apdcoll.find({"_id": interaction.guild_id})
         async for ids in data:
             channel = interaction.guild.get_channel(ids["ticketLogs"])
             category = interaction.guild.get_channel(ids["ticketCat"])
