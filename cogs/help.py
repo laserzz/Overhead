@@ -1,31 +1,38 @@
 import discord
 from discord.ext import commands
-import aiohttp
 
-class Help(commands.Cog):
+class HelpCommand(commands.Cog, name="Help"):
     def __init__(self, bot):
         self.bot = bot
 
-    @discord.slash_command(name="help")
-    async def helpcmd(self, ctx):
-        embed = discord.Embed(title="Help", description="See commands below.", color=discord.Color.embed_background(theme='dark'))
-        embed.add_field(
-            name="modapps",
-            value="`logsetup`\n`modalcreate`\n`appsetup`"
-        )
-        embed.add_field(
-            name="tickets",
-            value="`ticketsetup`\n`addrole`\n`removerole`\n`openticket`"
-        )
-        embed.add_field(
-            name="misc",
-            value="`ping`"
-        )
-        embed.add_field(
-            name="formverify",
-            value="`verifyappsetup`\n`createmodal`\n`setupverify`"
-        )
-        await ctx.respond(embed=embed)
+    @discord.slash_command()
+    async def help(self, ctx):
+        miscls = []
+        valstr = ""
+        miscstr = ""
+        em = discord.Embed(title="Help", description="View Commands below")
+        for cn, cog in self.bot.cogs.items():
+            cogcmdlist = cog.get_commands()
+            if cogcmdlist == []:
+                continue
+            for scg in cogcmdlist:
+                try:
+                    for command in scg.walk_commands():
+                        cmdstr = str(command)
+                        cmdname = cmdstr.split(' ')[1]
+                        valstr += f"`{cmdname}`\n"
+                    em.add_field(name=cn, value=valstr)
+                    valstr = ""
+
+                except:
+                    miscls.append(scg)
+                    continue
+
+        for miscmd in miscls:
+            miscstr += f"`{miscmd}`\n"
+        em.add_field(name="Misc", value=miscstr)
+
+        await ctx.respond(embed=em)
 
 def setup(bot):
-    bot.add_cog(Help(bot))
+    bot.add_cog(HelpCommand(bot))

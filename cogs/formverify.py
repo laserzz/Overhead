@@ -3,7 +3,7 @@ from discord.ext import commands
 from main import vdcoll
 from uiutils import modalcreate, verifydata
 
-class FormVerify(commands.Cog):
+class FormVerify(commands.Cog, name="Form Verify"):
     def __init__(self, bot):
         self.bot = bot
 

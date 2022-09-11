@@ -3,7 +3,7 @@ from discord.ext import commands
 from main import apdcoll
 from uiutils import ticketui, ticketsetup
 
-class tickets(commands.Cog):
+class Tickets(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -89,4 +89,4 @@ class tickets(commands.Cog):
         await ctx.respond(f"Setting set to {setting}.")
 
 def setup(bot):
-    bot.add_cog(tickets(bot))
+    bot.add_cog(Tickets(bot))

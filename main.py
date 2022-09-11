@@ -2,6 +2,7 @@ import discord
 import motor.motor_asyncio
 from dotenv import load_dotenv
 import os
+from discord.ext import commands
 
 load_dotenv()
 
@@ -19,7 +20,7 @@ vucoll = maindb["vusers"]
 intents = discord.Intents.default()
 intents.members = True
 
-bot = discord.Bot(intents=intents, help_command=None)
+bot = commands.Bot(intents=intents)
 
 for files in os.listdir("./cogs"):
     if files.endswith(".py"):
@@ -33,9 +34,5 @@ for files in os.listdir("./cogs"):
 @bot.event
 async def on_ready():
     print(f"logged in as {bot.user}")
-
-@bot.slash_command(name="ping", description="Pong")
-async def ping(ctx):
-    await ctx.respond(f"Pong! {round(bot.latency) * 1000}")
 
 bot.run(os.getenv("TOKEN"))

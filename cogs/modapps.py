@@ -3,7 +3,7 @@ from discord.ext import commands
 from main import apdcoll
 from uiutils import modalcreate, applyui, appdataui
 
-class ModApps(commands.Cog):
+class ModApps(commands.Cog, name="Mod Apps"):
     def __init__(self, bot):
         self.bot = bot
 

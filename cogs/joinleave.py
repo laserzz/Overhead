@@ -2,7 +2,7 @@ from discord.ext import commands
 import discord
 from main import coll, apdcoll, vcoll, apucoll, vdcoll, vmcoll, vucoll
 
-class joinleave(commands.Cog):
+class JoinLeave(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -29,7 +29,10 @@ class joinleave(commands.Cog):
         ls = [apdcoll, vcoll, apucoll, vdcoll, vmcoll, vucoll, coll]
         gid = {"_id": guild.id}
         for colls in ls:
-            await colls.delete_one(gid)
+            try:
+                await colls.delete_one(gid)
+            except:
+                continue
 
         em = discord.Embed(title="Guild Leave", description=f"Left {guild.name}", color=0xff0000)
         em.set_thumbnail(url=guild.icon.url)
@@ -38,4 +41,4 @@ class joinleave(commands.Cog):
         await ch.send(embed=em)
 
 def setup(bot):
-    bot.add_cog(joinleave(bot))
+    bot.add_cog(JoinLeave(bot))
