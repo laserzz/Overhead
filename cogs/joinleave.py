@@ -31,7 +31,7 @@ class joinleave(commands.Cog):
         for colls in ls:
             await colls.delete_one(gid)
 
-        em = discord.Embed(title="Guild Leave", description=f"Left {guild}", color=0xff0000)
+        em = discord.Embed(title="Guild Leave", description=f"Left {guild.name}", color=0xff0000)
         em.set_thumbnail(url=guild.icon.url)
         em.set_footer(text=f"ID: {guild.id}")
         ch = self.bot.get_channel(1018377407473922099)
