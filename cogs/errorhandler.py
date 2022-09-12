@@ -9,8 +9,10 @@ class ErrorHandler(commands.Cog):
     async def on_application_command_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
             return await ctx.respond("You do not have permission to run this command.", ephemeral=True)
-        if isinstance(error, AttributeError):
+        elif isinstance(error, AttributeError):
             return
+        elif isinstance(error, KeyError):
+            return await ctx.respond("A database-related error has occured, likely due to a module not being set up in this server.", ephemeral=True)
         channel = self.bot.get_channel(1018377407473922099)
         embed = discord.Embed(title="Error", description=f"```{error}```", color=discord.Color.embed_background(theme="dark"))
         embed2 = discord.Embed(title="Error", description=f"The developers are aware of this error. Please wait a few hours before using this command again.", color=discord.Color.embed_background(theme="dark"))

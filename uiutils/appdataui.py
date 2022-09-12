@@ -47,13 +47,10 @@ class AppDataView(View): #class for viewing application data
             if username and tag in chn.name:
                 return await interaction.response.send_message("This user already has an open ticket.", ephemeral=True)
         await interaction.response.defer(ephemeral=True)
-        data = apdcoll.find({"_id": interaction.guild_id})
+        data = await apdcoll.find({"_id": interaction.guild_id})
         async for ids in data:
-            try:
-                category = interaction.guild.get_channel(ids["ticketCat"])
-            except KeyError:
-                return interaction.response.send_message("Tickets haven't been set up in this server.")
-
+            category = interaction.guild.get_channel(ids["ticketCat"])
+            
         await apucoll.update_one({"_id": interaction.guild_id}, {"$unset": {username: userid}})
         overwrites = {
             interaction.guild.default_role: discord.PermissionOverwrite(view_channel=False),

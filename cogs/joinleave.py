@@ -1,6 +1,6 @@
 from discord.ext import commands
 import discord
-from main import coll, apdcoll, vcoll, apucoll, vdcoll, vmcoll, vucoll
+from main import coll, apdcoll, vcoll, apucoll, vdcoll, vmcoll, vucoll, ecoll
 
 class JoinLeave(commands.Cog):
     def __init__(self, bot):
@@ -17,6 +17,7 @@ class JoinLeave(commands.Cog):
 
         embed = discord.Embed(title="Thanks For Inviting Me!", description="Type /help for more information.")
         embed.set_thumbnail(url=user.avatar.url)
+        embed.set_footer(text="Overhead Join Message", icon_url=guild.icon.url)
         for channel in guild.channels:
             try:
                 await channel.send(embed=embed)
@@ -26,7 +27,7 @@ class JoinLeave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild:discord.Guild):
-        ls = [apdcoll, vcoll, apucoll, vdcoll, vmcoll, vucoll, coll]
+        ls = [apdcoll, vcoll, apucoll, vdcoll, vmcoll, vucoll, coll, ecoll]
         gid = {"_id": guild.id}
         for colls in ls:
             try:

@@ -37,8 +37,7 @@ class VDataSetup(View):
                 embed.set_footer(text=interaction.user.id)
                 await channel.send(embed=embed, view=vdataui.VDataView())
                 await interaction.response.send_message("App sent!", ephemeral=True)
-            except KeyError:
-                await interaction.response.send_message("The mod apps have not completed setup!")
+                
             except discord.HTTPException:
                 await interaction.response.send_message("An error occurred while submitting the app, likely due to a field being too long.")
 

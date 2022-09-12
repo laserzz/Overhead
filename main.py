@@ -16,6 +16,7 @@ apucoll = maindb["appusers"]
 vdcoll = maindb["vdata"]
 vmcoll = maindb["verifymodal"]
 vucoll = maindb["vusers"]
+ecoll = maindb["entry"]
 
 intents = discord.Intents.default()
 intents.members = True

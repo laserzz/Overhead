@@ -10,7 +10,11 @@ class HelpCommand(commands.Cog, name="Help"):
         miscls = []
         valstr = ""
         miscstr = ""
-        em = discord.Embed(title="Help", description="View Commands below")
+        em = discord.Embed(
+            title="Help",
+            description="Overhead is a multi-management bot with services like ticketing and staff applications.\nSee my commands below.",
+            color=discord.Color.embed_background(theme='dark')
+        )
         for cn, cog in self.bot.cogs.items():
             cogcmdlist = cog.get_commands()
             if cogcmdlist == []:
@@ -31,6 +35,8 @@ class HelpCommand(commands.Cog, name="Help"):
         for miscmd in miscls:
             miscstr += f"`{miscmd}`\n"
         em.add_field(name="Misc", value=miscstr)
+        em.set_thumbnail(url=self.bot.user.avatar.url)
+        em.set_footer(text=f"Requested By {ctx.author}", icon_url=ctx.author.avatar.url)
 
         await ctx.respond(embed=em)
 
