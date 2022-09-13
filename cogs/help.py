@@ -25,7 +25,7 @@ class HelpCommand(commands.Cog, name="Help"):
                         cmdstr = str(command)
                         cmdname = cmdstr.split(' ')[1]
                         valstr += f"`{cmdname}`\n"
-                    em.add_field(name=cn, value=valstr)
+                    em.add_field(name=cn, value=valstr, inline=True)
                     valstr = ""
 
                 except:
@@ -38,7 +38,11 @@ class HelpCommand(commands.Cog, name="Help"):
         em.set_thumbnail(url=self.bot.user.avatar.url)
         em.set_footer(text=f"Requested By {ctx.author}", icon_url=ctx.author.avatar.url)
 
-        await ctx.respond(embed=em)
+        await ctx.respond(embed=em, ephemeral=True)
+
+    @discord.slash_command()
+    async def ping(self, ctx):
+        await ctx.respond(f"🏓 Pong! {round(self.bot.latency * 1000)}ms")
 
 def setup(bot):
     bot.add_cog(HelpCommand(bot))
