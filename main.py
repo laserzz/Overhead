@@ -3,6 +3,7 @@ import motor.motor_asyncio
 from dotenv import load_dotenv
 import os
 from discord.ext import commands
+import asyncio
 
 load_dotenv()
 
@@ -20,6 +21,7 @@ ecoll = maindb["entry"]
 
 intents = discord.Intents.default()
 intents.members = True
+intents.presences = True
 
 bot = commands.Bot(intents=intents)
 
@@ -34,6 +36,9 @@ for files in os.listdir("./cogs"):
 
 @bot.event
 async def on_ready():
+    activity = discord.Game(name=f"and managing in {len(bot.guilds)} guilds")
     print(f"logged in as {bot.user}")
+    await asyncio.sleep(20)
+    await bot.change_presence(activity=activity)
 
 bot.run(os.getenv("TOKEN"))

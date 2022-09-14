@@ -38,7 +38,7 @@ class ModApps(commands.Cog, name="Mod Apps"):
     @mappcmd.command(name="appsetup", description="sets up apps")
     @commands.has_permissions(administrator=True)
     async def appsetup(self, ctx, channel:discord.TextChannel):
-        await channel.send("Button Here", view=applyui.ApplyView())
+        await channel.send("Staff Application Here!", view=applyui.ApplyView())
         await ctx.respond("ModApps set up!", ephemeral=True)
 
     @commands.Cog.listener()

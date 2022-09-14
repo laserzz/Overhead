@@ -9,6 +9,13 @@ class ApplyView(View): #class for applying
     @discord.ui.button(label="Apply", custom_id="apply-button", style=discord.ButtonStyle.green)
     async def btn_callback(self, button, interaction: discord.Interaction):
         data = await coll.find_one({"_id": interaction.guild_id})
+        data2 = await apucoll.find_one({"_id": interaction.guild_id})
+        try:
+            usercheck = data2[interaction.user.name]
+            if usercheck == interaction.user.id:
+                return await interaction.response.send_message("You already have an open application.", ephemeral=True)
+        except KeyError:
+            pass
         modal = Modal(title="Mod App")
         data.pop("_id")
         for key in data:
