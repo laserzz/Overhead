@@ -24,8 +24,5 @@ class Admin(commands.Cog):
         await interaction.response.send_modal(modal)
         await modal.wait()
 
-    
-
-
 def setup(bot):
     bot.add_cog(Admin(bot))
