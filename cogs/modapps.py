@@ -41,6 +41,15 @@ class ModApps(commands.Cog, name="Mod Apps"):
         await channel.send("Staff Application Here!", view=applyui.ApplyView())
         await ctx.respond("ModApps set up!", ephemeral=True)
 
+    @mappcmd.command(name="demote", description="demotes a user from mod.")
+    @commands.has_permissions(administrator=True)
+    async def demote(self, ctx, member:discord.Member, message):
+        doc = await apdcoll.find_one({"_id": ctx.guild.id})
+        role = ctx.guild.get_role(doc["modroleid"])
+        await member.remove_roles(role, reason="Demotion")
+        await member.send(message)
+        await ctx.respond(f"{member} has been demoted and notified.", ephemeral=True)
+
     @commands.Cog.listener()
     async def on_ready(self):
         self.bot.add_view(applyui.ApplyView())

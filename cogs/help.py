@@ -16,6 +16,8 @@ class HelpCommand(commands.Cog, name="Help"):
             color=discord.Color.embed_background(theme='dark')
         )
         for cn, cog in self.bot.cogs.items():
+            if cn == "Admin":
+                continue
             cogcmdlist = cog.get_commands()
             if cogcmdlist == []:
                 continue

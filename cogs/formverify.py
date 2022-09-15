@@ -31,11 +31,13 @@ class FormVerify(commands.Cog, name="Form Verify"):
         await ctx.respond("Setup Done!", ephemeral=True)
 
     @manv.command(description="creates a verify modal")
+    @commands.has_permissions(administrator=True)
     async def createmodal(self, ctx):
         modal = modalcreate.VerifyModal(title="Modal Results")
         await ctx.send_modal(modal)
 
     @manv.command(description="sets up verify modal")
+    @commands.has_permissions(administrator=True)
     async def setupverify(self, ctx, channel:discord.TextChannel):
         await channel.send("Button Here", view=verifydata.VDataSetup())
         await ctx.respond("ModApps set up!", ephemeral=True)
