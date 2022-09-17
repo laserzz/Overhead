@@ -9,7 +9,6 @@ class Stats(commands.Cog):
     async def stats(self, ctx):
         em = discord.Embed(title="Bot Stats", description="Various Bot Stats", color=discord.Color.embed_background(theme="dark"))
         em.add_field(name="Server Count", value=f"{len(self.bot.guilds)}")
-        em.add_field(name="Bot Owner", value=f"{self.bot.get_user(941778098674892851)}")
         em.add_field(name="Ping", value=f"{round(self.bot.latency * 1000)}ms")
         em.add_field(name="Library", value="Pycord v2.1.3")
         em.set_thumbnail(url=self.bot.user.avatar.url)

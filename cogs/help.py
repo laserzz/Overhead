@@ -21,6 +21,7 @@ class HelpCommand(commands.Cog, name="Help"):
             cogcmdlist = cog.get_commands()
             if cogcmdlist == []:
                 continue
+            
             for scg in cogcmdlist:
                 try:
                     for command in scg.walk_commands():

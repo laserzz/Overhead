@@ -9,20 +9,10 @@ class Admin(commands.Cog):
 
     @adcmd.command(description="leave server")
     @commands.is_owner()
-    async def leave(self, interaction:discord.Interaction):
-        modal = discord.ui.Modal(
-            title="Leave server"
-        )
-        modal.add_item(discord.ui.InputText(label="Server ID"))
-
-        async def callback(inter: discord.Interaction):
-            gu = self.bot.get_guild(int(modal.children[0].value))
-            await inter.response.send_message(f"left from {gu}", ephemeral=True)
-            await gu.leave()
-
-        modal.callback = callback
-        await interaction.response.send_modal(modal)
-        await modal.wait()
+    async def leave(self, ctx, guild_id:str):
+        gu = self.bot.get_guild(int(guild_id))
+        await ctx.respond(f"left {gu}", ephemeral=True)
+        await gu.leave()
 
 def setup(bot):
     bot.add_cog(Admin(bot))

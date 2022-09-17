@@ -36,7 +36,7 @@ for files in os.listdir("./cogs"):
 
 @bot.event
 async def on_ready():
-    activity = discord.Game(name=f"and managing in {len(bot.guilds)} guilds")
+    activity = discord.Game(name="Staff Application Manager")
     print(f"logged in as {bot.user}")
     await asyncio.sleep(20)
     await bot.change_presence(activity=activity)

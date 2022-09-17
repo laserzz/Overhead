@@ -29,7 +29,7 @@ class ModApps(commands.Cog, name="Mod Apps"):
         )
         await ctx.respond("Setup Done!", ephemeral=True)
 
-    @mappcmd.command(name="modalcreate", description="creates a mod app modal")
+    @mappcmd.command(name="createmodal", description="creates a mod app modal")
     @commands.has_permissions(administrator=True)
     async def create(self, ctx):
         modal = modalcreate.MyModal(title="Modal Results")
