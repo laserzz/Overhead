@@ -1,5 +1,4 @@
 import discord
-from discord.ext import commands
 from discord.ui import View, Modal, InputText
 from main import vmcoll, vdcoll, vucoll
 from uiutils import vdataui
@@ -28,7 +27,7 @@ class VDataSetup(View):
                 for fields in fielddata:
                     if fields == "_id":
                         continue
-                    descstr += f"**{fields}**\n{modal.children[i].value}\n\n"
+                    descstr += f"**{fielddata[fields]}**\n{modal.children[i].value}\n\n"
                     i += 1
                 
                 channel = interaction.guild.get_channel(data['channelid'])
