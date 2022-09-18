@@ -2,7 +2,6 @@ import discord
 import motor.motor_asyncio
 from dotenv import load_dotenv
 import os
-from discord.ext import commands
 import asyncio
 
 load_dotenv()
@@ -22,8 +21,9 @@ ecoll = maindb["entry"]
 intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
+intents.guilds = True
 
-bot = commands.Bot(intents=intents)
+bot = discord.Bot(intents=intents)
 
 for files in os.listdir("./cogs"):
     if files.endswith(".py"):

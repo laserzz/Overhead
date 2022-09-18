@@ -14,8 +14,9 @@ class ApplyView(View): #class for applying
             usercheck = data2[interaction.user.name]
             if usercheck == interaction.user.id:
                 return await interaction.response.send_message("You already have an open application.", ephemeral=True)
-        except KeyError:
-            pass
+        except TypeError:
+            await apucoll.insert_one({"_id": interaction.guild_id})
+        except KeyError: pass
         modal = Modal(title="Mod App")
         data.pop("_id")
         for key in data:

@@ -25,7 +25,8 @@ class ModApps(commands.Cog, name="Mod Apps"):
                     "categoryid": category.id,
                     "modroleid": modrole.id
                 }
-            }
+            },
+            upsert=True
         )
         await ctx.respond("Setup Done!", ephemeral=True)
 
